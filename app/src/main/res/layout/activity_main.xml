@@ -6,83 +6,80 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/logIn2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="320dp"
-        android:layout_marginEnd="275dp"
-        android:layout_marginBottom="363dp"
-        android:onClick="logIn"
-        android:text="Login"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/pass"
         android:layout_width="223dp"
         android:layout_height="49dp"
         android:hint="Enter Password"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.191"
+        app:layout_constraintHorizontal_bias="0.425"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.312" />
+        app:layout_constraintVertical_bias="0.263" />
 
     <EditText
-        android:id="@+id/userName"
+        android:id="@+id/user"
         android:layout_width="223dp"
         android:layout_height="49dp"
         android:hint="Enter username"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.191"
+        app:layout_constraintHorizontal_bias="0.425"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.192" />
+        app:layout_constraintVertical_bias="0.168" />
 
     <TextView
         android:id="@+id/signUpOrLogIn"
         android:layout_width="150dp"
         android:layout_height="25dp"
         android:layout_marginTop="614dp"
-        android:layout_marginEnd="202dp"
+        android:layout_marginEnd="160dp"
         android:text="SignUp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.869" />
+        app:layout_constraintVertical_bias="0.826" />
 
     <Button
         android:id="@+id/logIn"
         android:layout_width="220dp"
         android:layout_height="51dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="320dp"
-        android:layout_marginEnd="275dp"
-        android:layout_marginBottom="363dp"
-        android:onClick="logIn"
-        android:text="Login with Email"
+        android:layout_marginStart="83dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="108dp"
+        android:layout_marginBottom="200dp"
+        android:onClick="signUp"
+        android:text="Sign up With Email"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.62" />
+
+    <Button
+        android:id="@+id/logInWithEmail"
+        android:layout_width="220dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="440dp"
+        android:onClick="logInWithEmail"
+        android:text="Login with Email"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </Button>
+
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="41dp"
+        android:layout_marginStart="148dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/sym_def_app_icon" />
@@ -91,7 +88,7 @@
         android:id="@+id/loginFacebook"
         android:layout_width="221dp"
         android:layout_height="46dp"
-        android:layout_marginStart="48dp"
+        android:layout_marginStart="80dp"
         android:layout_marginTop="380dp"
         android:onClick="logInFaceBook"
         android:text="Login With Facebook"
