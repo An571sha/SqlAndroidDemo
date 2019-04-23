@@ -1,16 +1,20 @@
 package com.example.twitterclone;
 
+import java.util.List;
+
 public class User {
     public String username;
     public String email;
-    public String tweet;
+    public List tweet;
+    public List friendsList;
 
     public User() {}
 
-    public User(String username, String emai, String tweet) {
+    public User(String username, String email, List tweet,List friendsList) {
         this.username = username;
         this.email = email;
         this.tweet =tweet;
+        this.friendsList = friendsList;
     }
 
 }
