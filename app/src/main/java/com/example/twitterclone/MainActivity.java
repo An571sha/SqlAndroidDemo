@@ -18,7 +18,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -42,12 +44,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         signUpWithEmail = (Button) findViewById(R.id.logIn);
-        userNameTextField = findViewById(R.id.enterUserName);
         mAuth = FirebaseAuth.getInstance();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         emailTextField = (EditText) this.findViewById(R.id.user);
         passwordTextField = (EditText) this.findViewById(R.id.pass);
+        userNameTextField = (EditText) this.findViewById(R.id.enterUserName);
+        userDatabase = FirebaseDatabase.getInstance().getReference();
+
 
     }
 
@@ -63,6 +67,8 @@ public class MainActivity extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     Log.d(TAG, "createUserWithEmail:success");
                                     writeNewUser(mAuth.getUid(),userName,email);
+                                    Toast.makeText(MainActivity.this, "User created please sign in",
+                                            Toast.LENGTH_SHORT).show();
 
                                 } else {
 
@@ -163,7 +169,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void writeNewUser(String userId, String name, String email) {
-        User user = new User(name,email,null,null);
+        ArrayList<String> helloList = new ArrayList<String>();
+        helloList.add("");
+        ArrayList<String> friendList = new ArrayList<String>();
+        friendList.add("");
+        User user = new User(name,email,helloList,friendList);
         userDatabase.child("users").child(userId).setValue(user);
     }
 }
