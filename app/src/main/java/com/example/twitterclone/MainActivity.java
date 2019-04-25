@@ -176,6 +176,6 @@ public class MainActivity extends AppCompatActivity {
         User user = new User(name,email,friendList);
         userDatabase.child("users").child(userId).setValue(user);
         Tweets tweets = new Tweets(helloList);
-        userDatabase.child("tweets").child(userId).setValue(tweets);
+        userDatabase.child("tweetsByUserId").child(userId).setValue(tweets);
     }
 }
