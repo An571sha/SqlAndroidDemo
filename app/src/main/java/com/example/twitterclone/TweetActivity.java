@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -23,6 +24,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,7 +48,6 @@ public class TweetActivity extends AppCompatActivity {
     DatabaseReference userDatabase;
     Handler mHandler;
     String key = null;
-    String requiredVal;
     String requiredKey;
 
 
@@ -63,7 +65,7 @@ public class TweetActivity extends AppCompatActivity {
         message = intent.getStringExtra("userNameId");
         userDatabase = FirebaseDatabase.getInstance().getReference();
         mHandler= new Handler();
-        onFriendsDataChange();
+
         tweetListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
@@ -82,16 +84,14 @@ public class TweetActivity extends AppCompatActivity {
     }
 
     public void addFriend(View view){
-
-       /* friendListArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, friendArrayList);
-        friendsListView.setAdapter(friendListArrayAdapter);*/
+        onFriendsDataChange();
 
     }
     public void tweetButton(View view){
         DatabaseReference dbReference = userDatabase.child("users").child(message).child("tweet").push();
         key = dbReference.getKey();
         Map<String,Object> map = new HashMap<>();
-        map.put(key,tweet.getText().toString());
+        map.put("tweets",tweet.getText().toString());
         dbReference.updateChildren(map);
         onTweetDataChanged();
 
@@ -108,7 +108,7 @@ public class TweetActivity extends AppCompatActivity {
                     tweetListArrayAdapter.clear();
                 }
                 for(DataSnapshot tweets: dataSnapshot.getChildren()){
-                    tweetArrayList.add(tweets.getValue().toString().substring(tweets.getValue().toString().lastIndexOf("=")+1));
+                    tweetArrayList.add(tweets.getValue().toString().substring(tweets.getValue().toString().lastIndexOf("=")+1).replace("}", "").trim());
                 }
 
                 Log.i("List",tweetArrayList.toString());
@@ -127,16 +127,21 @@ public class TweetActivity extends AppCompatActivity {
 
     public void onFriendsDataChange(){
         friendArrayList = new ArrayList<>();
-        userDatabase.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
+        userDatabase.child("users");
+        Query qRef = userDatabase.orderByChild("users");
+        final ArrayList logArrayList = new ArrayList();  //Only for logging
+        qRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-               if(dataSnapshot.exists()){
-
-                  //  Log.d("List", "User name: " + dataSnapshot.child(message).toString());
-                    for(DataSnapshot s : dataSnapshot.getChildren()){
-                        s.child("user").getValue();
-                        Log.d("ChildList", "User name: " + s.child("user").getValue());
+                if(dataSnapshot.exists()){
+                    for (DataSnapshot snap : dataSnapshot.getChildren()) {
+                        logArrayList.add(snap.getValue());
                     }
+                    Log.d("Logging The Value",logArrayList.toString());
+
+                }else{
+                    Toast.makeText(TweetActivity.this, "No users were found",
+                            Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -152,17 +157,22 @@ public class TweetActivity extends AppCompatActivity {
         alert.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Log.i("SelectedData", data);
+                //Log.i("SelectedData", data);
                 DatabaseReference ref = userDatabase.child("users").child(message).child("tweet");
-                Log.d("database", ref.orderByValue().equalTo(data).toString());
-                ref.orderByValue().equalTo(data).addListenerForSingleValueEvent(new ValueEventListener() {
+                //Log.d("database", ref.orderByValue().equalTo(data).toString());
+                Query qRef = ref.orderByChild("tweets").equalTo(data);
+                final ArrayList logArrayList = new ArrayList();  //Only for logging
+                qRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for (DataSnapshot snap : dataSnapshot.getChildren()) {
-                             requiredVal= snap.getValue(String.class);
-                             requiredKey= snap.getKey();
+                            logArrayList.add(snap.getKey());
+                            requiredKey = snap.getKey();
                         }
-                            Log.d("Logging The Value",requiredKey + requiredVal);
+
+                        Log.d("Logging The Value",logArrayList.toString());
+                        userDatabase.child("users").child(message).child("tweet").child(requiredKey).removeValue(); //removes the tweet, in future may also result in deletion of tweet replies
+
 
 
                     }
