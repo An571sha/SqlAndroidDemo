@@ -88,7 +88,7 @@ public class TweetActivity extends AppCompatActivity {
 
     }
     public void tweetButton(View view){
-        DatabaseReference dbReference = userDatabase.child("users").child(message).child("tweet").push();
+        DatabaseReference dbReference = userDatabase.child("tweets").child(message).child("tweet").push();
         key = dbReference.getKey();
         Map<String,Object> map = new HashMap<>();
         map.put("tweets",tweet.getText().toString());
@@ -98,7 +98,7 @@ public class TweetActivity extends AppCompatActivity {
     }
 
     public void onTweetDataChanged(){
-        DatabaseReference tweetRef = userDatabase.child("users").child(message).child("tweet");
+        DatabaseReference tweetRef = userDatabase.child("tweets").child(message).child("tweet");
         tweetArrayList = new ArrayList<String>();
         tweetRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -158,9 +158,9 @@ public class TweetActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //Log.i("SelectedData", data);
-                DatabaseReference ref = userDatabase.child("users").child(message).child("tweet");
+                DatabaseReference ref = userDatabase.child("tweets").child(message).child("tweet");
                 //Log.d("database", ref.orderByValue().equalTo(data).toString());
-                Query qRef = ref.orderByChild("tweets").equalTo(data);
+                Query qRef = ref.orderByChild("tweet").equalTo(data);
                 final ArrayList logArrayList = new ArrayList();  //Only for logging
                 qRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -171,7 +171,7 @@ public class TweetActivity extends AppCompatActivity {
                         }
 
                         Log.d("Logging The Value",logArrayList.toString());
-                        userDatabase.child("users").child(message).child("tweet").child(requiredKey).removeValue(); //removes the tweet, in future may also result in deletion of tweet replies
+                        userDatabase.child("tweets").child(message).child("tweet").removeValue(); //removes the tweet, in future may also result in deletion of tweet replies
 
 
 

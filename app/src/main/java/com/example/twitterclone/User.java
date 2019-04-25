@@ -6,15 +6,13 @@ import java.util.List;
 public class User {
     public String username;
     public String email;
-    public ArrayList<String> tweet;
     public ArrayList<String> friendsList;
 
     public User() {}
 
-    public User(String username, String email, ArrayList tweet,ArrayList friendsList) {
+    public User(String username, String email,ArrayList friendsList) {
         this.username = username;
         this.email = email;
-        this.tweet = tweet;
         this.friendsList = friendsList;
     }
 
@@ -33,13 +31,7 @@ public class User {
     public void setEmail(String email) {
         this.username = email;
     }
-    public ArrayList<String> getTweet() {
-        return tweet;
-    }
 
-    public void setTweet(ArrayList<String> tweet) {
-        this.tweet = tweet;
-    }
     public ArrayList<String> getFriendsList() {
         return friendsList;
     }

@@ -173,7 +173,9 @@ public class MainActivity extends AppCompatActivity {
         helloList.add("");
         ArrayList<String> friendList = new ArrayList<String>();
         friendList.add("");
-        User user = new User(name,email,helloList,friendList);
+        User user = new User(name,email,friendList);
         userDatabase.child("users").child(userId).setValue(user);
+        Tweets tweets = new Tweets(helloList);
+        userDatabase.child("tweets").child(userId).setValue(tweets);
     }
 }
