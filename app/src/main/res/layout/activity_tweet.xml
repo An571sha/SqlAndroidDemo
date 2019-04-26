@@ -125,7 +125,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
-        android:id="@+id/friendsList"
+        android:id="@+id/friendsListByUserId"
         android:layout_width="178dp"
         android:layout_height="202dp"
         android:layout_marginStart="8dp"

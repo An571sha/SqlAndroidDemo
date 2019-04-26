@@ -6,14 +6,14 @@ import java.util.List;
 public class User {
     public String username;
     public String email;
-    public ArrayList<String> friendsList;
+    public ArrayList<String> friendsListByUserId;
 
     public User() {}
 
-    public User(String username, String email,ArrayList friendsList) {
+    public User(String username, String email,ArrayList friendsListByUserId) {
         this.username = username;
         this.email = email;
-        this.friendsList = friendsList;
+        this.friendsListByUserId = friendsListByUserId;
     }
 
     public String getUsername() {
@@ -33,11 +33,11 @@ public class User {
     }
 
     public ArrayList<String> getFriendsList() {
-        return friendsList;
+        return friendsListByUserId;
     }
 
-    public void setFriendsList(ArrayList<String> friendsList) {
-        this.friendsList = friendsList;
+    public void setFriendsList(ArrayList<String> friendsListByUserId) {
+        this.friendsListByUserId = friendsListByUserId;
     }
 
 
